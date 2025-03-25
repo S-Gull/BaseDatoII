@@ -35,6 +35,7 @@ git push origin main
 ```
 
 # 2. Generar clave SSH
+    git remote set-url origin git@github.com:@usuario/Repositorio.git
     ssh-keygen -t ed25519 -C "tu@email.com"  # Presionar Enter para valores predeterminados
     cat ~/.ssh/id_ed25519.pub                # Copiar clave pública
 #### 🔐 **Autenticación en GitHub**
