@@ -17,10 +17,27 @@ Repositorio privado para el curso de Bases de Datos II.
   git config --global init.defaultBranch main  # Usar 'main' como rama predeterminada
   ```
 ### 2. Configurar Identidad
-# Generar clave SSH
+## 1. Token de Acceso Personal (PAT)
+Generar Token:
+ En GitHub:
+ 1. Ve a Settings > Developer settings > Personal access tokens
+ 2. Haz clic en "Generate new token (classic)"
+ 3. Selecciona scopes:
+    - repo (control completo de repos privados)
+    - admin:public_key (opcional para SSH)
+ 4. Genera y copia el token (solo visible una vez)
+Usar Token:
+
+```bash
+git push origin main
+# Usuario: TuNombreGitHub
+# Contraseña: Pega_tu_token_aquí
+```
+
+# 2. Generar clave SSH
     ssh-keygen -t ed25519 -C "tu@email.com"  # Presionar Enter para valores predeterminados
     cat ~/.ssh/id_ed25519.pub                # Copiar clave pública
-# 🔐 **Autenticación en GitHub**
+#### 🔐 **Autenticación en GitHub**
  Agregar clave a GitHub:
  1. Ve a [GitHub > Settings > SSH Keys](https://github.com/settings/keys)
  2. Pega la clave y guarda
@@ -63,19 +80,18 @@ git pull origin main
 git checkout -b nombre-rama
 ```
 3. **Resuelve conflictos:**
-
-* -  Edita los archivos con <<<<<<< HEAD
-* -  Ejecuta:
+    -  Edita los archivos con <<<<<<< HEAD
+    -  Ejecuta:
 ```bash
 git add . && git commit -m "Resuelve conflictos"
 ```
 
 # 🚨 **Solución de Problemas**
 ### Error: "Authentication Failed"
-    ```bash
+```bash
     # Si usas HTTPS:
     git remote set-url origin git@github.com:S-Gull/BaseDatoII.git  # Cambiar a SSH
-    ```
+```
 ### Error: "Updates Were Rejected"
 ```bash
 git pull origin main   # Fusiona cambios remotos
