@@ -1,0 +1,9 @@
+-- Eliminar todas las funciones
+DROP FUNCTION IF EXISTS fn_get_nombre_alumno;
+DROP FUNCTION IF EXISTS fn_get_nombre_materia;
+DROP FUNCTION IF EXISTS fn_get_nombre_salon;
+DROP FUNCTION IF EXISTS fn_promedio_salon;
+DROP FUNCTION IF EXISTS fn_total_alumnos_materia;
+DROP FUNCTION IF EXISTS fn_verificar_salon;
+DROP FUNCTION IF EXISTS fn_nota_maxima;
+DROP FUNCTION IF EXISTS fn_formatear_fecha;

@@ -1,0 +1,143 @@
+CREATE DATABASE ambulatorio_GA;
+
+-- Tabla centro_salud_ga
+CREATE TABLE centro_salud_ga (
+  IdCentro_Salud_ga int(11) NOT NULL,
+  RIF_ga varchar(12) NOT NULL,
+  Nombre_ga varchar(50) NOT NULL,
+  Direccion_ga varchar(70) NOT NULL,
+  Correo_ga varchar(50) NOT NULL,
+  Telefono_ga int(11) NOT NULL, 
+  PRIMARY KEY (IdCentro_Salud_ga)
+);
+
+-- Tabla medico_ga
+CREATE TABLE medico_ga (
+  IdMedico_ga int(11) NOT NULL,
+  Nombres_ga varchar(50) NOT NULL,
+  Cedula_ga varchar(10) NOT NULL,
+  Apellidos_ga varchar(50) NOT NULL,
+  Sexo_ga int(11) NOT NULL,
+  FechaN_ga date NOT NULL,
+  Telefono_ga int(11) NOT NULL,
+  Direccion_ga TEXT NOT NULL, -- Cambie el Int(11) por text
+  PRIMARY KEY(IdMedico_ga)
+);
+
+-- Tabla familiar_ga
+CREATE TABLE familiar_ga (
+  IdFamiliar_ga int(11) NOT NULL,
+  Cedula_ga int(11) NOT NULL,
+  Nombres_ga varchar(50) NOT NULL,
+  Apellidos_ga varchar(50) NOT NULL,
+  Telefono_ga int(11) NOT NULL,
+  PRIMARY KEY(IdFamiliar_ga)
+);
+
+-- Tabla paciente_ga
+CREATE TABLE paciente_ga (
+  IdPaciente_ga int(11) NOT NULL,
+  IdFamiliar_paciente int(11) NOT NULL,
+  Cedula_ga varchar(10) NOT NULL,
+  Nombres_ga varchar(50) NOT NULL,
+  Apellidos_ga varchar(50) NOT NULL,
+  Telefono_ga int(11) NOT NULL,
+  Sexo_ga varchar(15) NOT NULL,
+  FechaNac_ga date NOT NULL,
+  Direccion_ga varchar(100) NOT NULL,
+  PRIMARY KEY (IdPaciente_ga),
+  FOREIGN KEY (IdFamiliar_paciente) REFERENCES familiar_ga(IdFamiliar_ga)
+    ON DELETE CASCADE
+);
+
+-- Tabla consulta_ga
+CREATE TABLE consulta_ga (
+  IdConsulta_ga int(11) NOT NULL,
+  IdMedico_consulta int(11) NOT NULL,
+  IdPaciente_consulta int(11) NOT NULL,
+  Fecha_ga date NOT NULL,
+  Antecedentesp_ga varchar(100) NOT NULL,
+  Antecedentesf_ga varchar(100) NOT NULL,
+  ResultadoEstudios_ga varchar(200) NOT NULL,
+  Diagnostico_ga varchar(120) NOT NULL,
+  Tratamiento_ga varchar(90) NOT NULL,
+  PRIMARY KEY (IdConsulta_ga),
+  FOREIGN KEY (IdMedico_consulta) REFERENCES medico_ga(IdMedico_ga)
+    ON DELETE CASCADE,
+  FOREIGN KEY (IdPaciente_consulta) REFERENCES paciente_ga(IdPaciente_ga)
+    ON DELETE CASCADE
+);
+
+-- Tabla estudio_ga
+CREATE TABLE estudio_ga (
+  idEstudio_ga int(11) NOT NULL,
+  Nombre_ga varchar(50) NOT NULL,
+  PRIMARY KEY(idEstudio_ga)
+);
+
+-- Tabla consulta_estudio_ga
+CREATE TABLE consulta_estudio_ga (
+  IdConsultaEstudio_ga int(11) NOT NULL,
+  int(11) NOT NULL,
+  IdConsulta_consulta_estudio int(11) NOT NULL, 
+  PRIMARY KEY (IdConsultaEstudio_ga),
+  FOREIGN KEY (idEstudio_consulta_estudio) REFERENCES estudio_ga(idEstudio_ga)
+    ON DELETE CASCADE,
+  FOREIGN KEY (IdConsulta_consulta_estudio) REFERENCES consulta_ga(IdConsulta_ga)
+    ON DELETE CASCADE
+);
+
+
+/* INSERCION DE DATOS PARA LA ACT 2*/
+-- Consulta 1
+INSERT INTO centro_salud_ga (IdCentro_Salud_ga, RIF_ga, Nombre_ga, Direccion_ga, Correo_ga, Telefono_ga)
+VALUES 
+(1, 'J-123456789', 'Centro Salud GA 1', 'Calle Falsa 123', 'centro1@example.com', 1234567890),
+(2, 'J-987654321', 'Centro Salud GA 2', 'Avenida Siempre Viva 456', 'centro2@example.com', 987654321);
+
+
+-- Consulta 2
+INSERT INTO medico_ga (IdMedico_ga, Nombres_ga, Cedula_ga, Apellidos_ga, Sexo_ga, FechaN_ga, Telefono_ga, Direccion_ga)
+VALUES 
+(1, 'Juan', 'V-12345678', 'Pérez', 1, '1980-05-15', 1234567890, 'Calle 123, Ciudad GA'),
+(2, 'María', 'V-87654321', 'Gómez', 2, '1975-10-20', 987654321, 'Avenida 456, Ciudad GA');
+
+
+-- Consulta 3
+INSERT INTO familiar_ga (IdFamiliar_ga, Cedula_ga, Nombres_ga, Apellidos_ga, Telefono_ga)
+VALUES 
+(1, 12345678, 'Carlos', 'López', 1234567890),
+(2, 87654321, 'Ana', 'Torres', 987654321);
+
+-- Consulta 4
+INSERT INTO paciente_ga (IdPaciente_ga, IdFamiliar_paciente, Cedula_ga, Nombres_ga, Apellidos_ga, Telefono_ga, Sexo_ga, FechaNac_ga, Direccion_ga)
+VALUES 
+(1, 1, 'V-11111111', 'Pedro', 'López', 1234567890, 'Masculino', '1990-01-01', 'Calle 123, Ciudad GA'),
+(2, 2, 'V-22222222', 'Laura', 'Torres', 987654321, 'Femenino', '1995-05-05', 'Avenida 456, Ciudad GA');
+
+-- Consulta 5
+INSERT INTO consulta_ga (IdConsulta_ga, IdMedico_consulta, IdPaciente_consulta, Fecha_ga, Antecedentesp_ga, Antecedentesf_ga, ResultadoEstudios_ga, Diagnostico_ga, Tratamiento_ga)
+VALUES 
+(1, 1, 1, '2023-10-01', 'Ninguno', 'Ninguno', 'Todo normal', 'Saludable', 'Ninguno'),
+(2, 2, 2, '2023-10-02', 'Alergias', 'Ninguno', 'Leve alergia al polen', 'Alergia estacional', 'Antihistamínicos');
+
+-- Consulta 6
+INSERT INTO estudio_ga (idEstudio_ga, Nombre_ga)
+VALUES 
+(1, 'Hemograma completo'),
+(2, 'Radiografía de tórax');
+
+-- Consulta 7
+INSERT INTO consulta_estudio_ga (IdConsultaEstudio_ga, idEstudio_consulta_estudio, IdConsulta_consulta_estudio)
+VALUES 
+(1, 1, 1),
+(2, 2, 2);
+
+
+
+
+select /* * */est.nombre_ga, cons.Fecha_ga, cons.ResultadoEstudios_ga ,cons.Diagnostico_ga ,cons.Tratamiento_ga   from estudio_ga est
+    join consulta_estudio_ga cest
+    on cest.idEstudio_consulta_estudio = est.idEstudio_ga
+    join consulta_ga cons
+    on cons.IdConsulta_ga = cest.IdConsulta_consulta_estudio
